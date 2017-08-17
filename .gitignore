@@ -26,3 +26,4 @@ target
 .project
 *.iml
 .idea
+/.idea/vcs.xml
