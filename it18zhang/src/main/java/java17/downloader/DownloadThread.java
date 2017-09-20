@@ -2,8 +2,8 @@ package java17.downloader;
 
 import java.io.InputStream;
 import java.io.RandomAccessFile;
-import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLConnection;
 
 /**
  * 下载线程
@@ -26,7 +26,7 @@ public class DownloadThread extends Thread {
 	public void run() {
 		try {
 			URL u = new URL(url);
-			HttpURLConnection conn = (HttpURLConnection) u.openConnection();
+			URLConnection conn = u.openConnection();
 			//设置请求属性
 			//*****Range  bytes=startPos-endPos*****
 			conn.setRequestProperty("Range", "bytes=" + startPos + "-" + endPos);

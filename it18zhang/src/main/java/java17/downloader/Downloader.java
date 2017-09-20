@@ -1,7 +1,7 @@
 package java17.downloader;
 
-import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLConnection;
 
 /**
  * 下载器
@@ -34,8 +34,8 @@ public class Downloader {
 	private int calcFileLength() {
 		try {
 			URL u = new URL(url);
-			HttpURLConnection conn = (HttpURLConnection) u.openConnection();
-			return conn.getContentLength() ;
+			URLConnection urlConnection = u.openConnection();
+			return urlConnection.getContentLength();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
