@@ -7,7 +7,7 @@ import java.util.List;
  */
 public class ServerFriendsMessage extends Message<List<String>> {
 
-	public ServerFriendsMessage(List<String> message) {
-		this.setMessageContent(message);
-	}
+    public ServerFriendsMessage(List<String> message) {
+        this.setMessageContent(message);
+    }
 }

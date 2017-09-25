@@ -2,63 +2,63 @@ package java16.seq;
 
 import java.io.Serializable;
 
-public class Dog implements Serializable{
-	private static final long serialVersionUID = 130874992691377104L;
-	private String name;
-	private int age;
-	
-	private String color ;
-	
-	//伙伴
-	private Cat partner ;
-	
-	//临时的
-	private transient Person owner ;
-	
-	public Person getOwner() {
-		return owner;
-	}
+public class Dog implements Serializable {
+    private static final long serialVersionUID = 130874992691377104L;
+    private String name;
+    private int age;
 
-	public void setOwner(Person owner) {
-		this.owner = owner;
-	}
+    private String color;
 
-	public Cat getPartner() {
-		return partner;
-	}
+    //伙伴
+    private Cat partner;
 
-	public void setPartner(Cat partner) {
-		this.partner = partner;
-	}
+    //临时的
+    private transient Person owner;
 
-	public Dog(String name, int age) {
-		super();
-		this.name = name;
-		this.age = age;
-		System.out.println("kkkk");
-	}
+    public Dog(String name, int age) {
+        super();
+        this.name = name;
+        this.age = age;
+        System.out.println("kkkk");
+    }
 
-	public String getName() {
-		return name;
-	}
+    public Person getOwner() {
+        return owner;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setOwner(Person owner) {
+        this.owner = owner;
+    }
 
-	public int getAge() {
-		return age;
-	}
+    public Cat getPartner() {
+        return partner;
+    }
 
-	public void setAge(int age) {
-		this.age = age;
-	}
+    public void setPartner(Cat partner) {
+        this.partner = partner;
+    }
 
-	public String getColor() {
-		return color;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setColor(String color) {
-		this.color = color;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
 }
