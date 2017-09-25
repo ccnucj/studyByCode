@@ -1,4 +1,4 @@
-package java26.nio.server;
+package socketNio.server;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
