@@ -1,5 +1,6 @@
 package dp;
 
+
 import org.junit.Test;
 
 import java.lang.reflect.Constructor;
@@ -17,7 +18,7 @@ public class App
     }
 
     /**
-     * 可以利用此机制，实现权限的控制
+     * 可以利用此机制，实现权限的控制，即位相或
      */
     @Test
     public void m1() {
