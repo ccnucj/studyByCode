@@ -31,7 +31,6 @@ public class App
         Class clazz = Class.forName("dp.AAA");
         Constructor declaredConstructor = clazz.getDeclaredConstructor(int.class);
         AAA aaa = (AAA) declaredConstructor.newInstance(123);
-        System.out.println(aaa.getAge());
 
 
 
