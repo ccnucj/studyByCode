@@ -23,4 +23,12 @@ public class Test1Controller {
     public String m2() {
         return "this is test2";
     }
+
+    /**
+     * 测试get传参数不需要  @RequestParam
+     */
+    @GetMapping("/test3")
+    public String m3(Integer id) {
+        return "测试get请求不需要 注解 【@RequestParam】,id = " + id;
+    }
 }
