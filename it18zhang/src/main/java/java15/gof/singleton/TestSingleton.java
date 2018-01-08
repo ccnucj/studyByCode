@@ -7,33 +7,33 @@ import org.junit.Test;
  */
 public class TestSingleton {
 
-    /**
-     *
-     */
-    public static void main(String[] args) {
-        new Thread() {
-            public void run() {
-                GarbageBox box = GarbageBox.getInstance();
-                System.out.println(box);
-            }
-        }.start();
+	/**
+	 *
+	 */
+	public static void main(String[] args) {
+		new Thread() {
+			public void run() {
+				GarbageBox box = GarbageBox.getInstance();
+				System.out.println(box);
+			}
+		}.start();
 
 
-        new Thread() {
-            public void run() {
-                GarbageBox box = GarbageBox.getInstance();
-                System.out.println(box);
-            }
-        }.start();
+		new Thread() {
+			public void run() {
+				GarbageBox box = GarbageBox.getInstance();
+				System.out.println(box);
+			}
+		}.start();
 
-    }
+	}
 
-    @Test
-    public void testSingleton() {
-        GarbageBox box = GarbageBox.getInstance();
-        System.out.println(box.toString());
-        System.out.println(GarbageBox.getInstance());
-        System.out.println(GarbageBox.getInstance());
-        System.out.println(GarbageBox.getInstance());
-    }
+	@Test
+	public void testSingleton() {
+		GarbageBox box = GarbageBox.getInstance();
+		System.out.println(box.toString());
+		System.out.println(GarbageBox.getInstance());
+		System.out.println(GarbageBox.getInstance());
+		System.out.println(GarbageBox.getInstance());
+	}
 }

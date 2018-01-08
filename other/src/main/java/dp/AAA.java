@@ -1,7 +1,6 @@
 package dp;
 
 import org.junit.Test;
-import org.omg.CORBA.INTERNAL;
 
 import java.util.*;
 
@@ -62,6 +61,7 @@ public class AAA {
 
 	/**
 	 * 测试 try catch finally对返回值的影响
+	 *
 	 * @return
 	 */
 	public static int test4() {
@@ -81,6 +81,83 @@ public class AAA {
 			b += 50;
 		}
 		return 204;
+	}
+
+	/**
+	 * 利用iterator的remove可以避免快速失败
+	 */
+	@Test
+	public void m1() {
+		Set<String> set = new HashSet<String>(3) {{
+			add("111");
+			add("222");
+			add("333");
+		}};
+		Iterator<String> iterator = set.iterator();
+		while (iterator.hasNext()) {
+			String val = iterator.next();
+			if (val.equals("222")) {
+				iterator.remove();
+				System.out.println("找到了");
+			}
+			System.out.println(val);
+		}
+	}
+
+	/**
+	 * trimToSize 在所有的添加完成后调用以避免浪费空间
+	 */
+	@Test
+	public void m12() {
+		ArrayList<Integer> list = new ArrayList<Integer>(6);
+		list.add(1);
+		list.add(2);
+		list.trimToSize();
+
+	}
+
+	/**
+	 * 请实现一个函数，将一个字符串中的空格替换成“%20”。
+	 * 例如，当字符串为We Are Happy.则经过替换之后的字符串为We%20Are%20Happy。
+	 */
+	@Test
+	public void m2() {
+		Solution solution = new Solution();
+		String s = solution.replaceSpace(new StringBuffer("We  Are Happy"));
+		System.out.println(s);
+	}
+
+	@Test
+	public void m3() {
+		String str = "select * from";
+		String[] split = str.split(";");
+		System.out.println(split.length);
+		for (String sql : split) {
+			System.out.println(sql);
+		}
+	}
+
+	@Test
+	public void m4() {
+		Map<String, String> map = new HashMap<String, String>() {{
+			put("key1", "val1");
+			put("key2", "val2");
+			put("key3", "val3");
+		}};
+		System.out.println(map.toString());
+	}
+
+	@Test
+	public void m5() {
+		HiveAuthRecord hiveAuthRecord = new HiveAuthRecord("db1", "tb1");
+		HiveAuthRecord hiveAuthRecord1 = new HiveAuthRecord("db2", "tb2");
+		HiveAuthRecord hiveAuthRecord2 = new HiveAuthRecord("db1", "tb1");
+		Map<HiveAuthRecord, Integer> map = new HashMap<HiveAuthRecord, Integer>();
+		map.put(hiveAuthRecord, 1);
+		map.put(hiveAuthRecord1, 1);
+		map.put(hiveAuthRecord2, 1);
+		System.out.println(map.size());
+
 	}
 
 	static class BBB {
@@ -112,51 +189,6 @@ public class AAA {
 		}
 	}
 
-	/**
-	 * 利用iterator的remove可以避免快速失败
-	 */
-	@Test
-	public void m1() {
-		Set<String> set = new HashSet<String>(3) {{
-			add("111");
-			add("222");
-			add("333");
-		}};
-		Iterator<String> iterator = set.iterator();
-		while (iterator.hasNext()) {
-			String val = iterator.next();
-			if (val.equals("222")) {
-				iterator.remove();
-				System.out.println("找到了");
-			}
-			System.out.println(val);
-		}
-	}
-
-
-	/**
-	 * trimToSize 在所有的添加完成后调用以避免浪费空间
-	 */
-	@Test
-	public void m12() {
-		ArrayList<Integer> list = new ArrayList<Integer>(6);
-		list.add(1);
-		list.add(2);
-		list.trimToSize();
-
-	}
-
-	/**
-	 * 请实现一个函数，将一个字符串中的空格替换成“%20”。
-	 * 例如，当字符串为We Are Happy.则经过替换之后的字符串为We%20Are%20Happy。
-	 */
-	@Test
-	public void m2() {
-		Solution solution = new Solution();
-		String s = solution.replaceSpace(new StringBuffer("We  Are Happy"));
-		System.out.println(s);
-	}
-
 	public class Solution {
 		public String replaceSpace(StringBuffer str) {
 			String s = str.toString();
@@ -179,39 +211,6 @@ public class AAA {
 
 	}
 
-	@Test
-	public void m3() {
-		String str = "select * from";
-		String[] split = str.split(";");
-		System.out.println(split.length);
-		for (String sql : split) {
-			System.out.println(sql);
-		}
-	}
-
-	@Test
-	public void m4() {
-		Map<String, String> map = new HashMap<String, String>() {{
-			put("key1", "val1");
-			put("key2", "val2");
-			put("key3", "val3");
-		}};
-		System.out.println(map.toString());
-	}
-
-	@Test
-	public void m5() {
-		HiveAuthRecord hiveAuthRecord = new HiveAuthRecord("db1", "tb1");
-		HiveAuthRecord hiveAuthRecord1 = new HiveAuthRecord("db2", "tb2");
-		HiveAuthRecord hiveAuthRecord2 = new HiveAuthRecord("db1", "tb1");
-		Map<HiveAuthRecord,Integer> map = new HashMap<HiveAuthRecord, Integer>();
-		map.put(hiveAuthRecord,1);
-		map.put(hiveAuthRecord1,1);
-		map.put(hiveAuthRecord2,1);
-		System.out.println(map.size());
-
-	}
-
 
 }
 
@@ -219,6 +218,11 @@ class HiveAuthRecord {
 
 	private String db;
 	private String table;
+
+	public HiveAuthRecord(String db, String table) {
+		this.db = db;
+		this.table = table;
+	}
 
 	@Override
 	public boolean equals(Object o) {
@@ -248,11 +252,6 @@ class HiveAuthRecord {
 	}
 
 	public void setTable(String table) {
-		this.table = table;
-	}
-
-	public HiveAuthRecord(String db, String table) {
-		this.db = db;
 		this.table = table;
 	}
 }

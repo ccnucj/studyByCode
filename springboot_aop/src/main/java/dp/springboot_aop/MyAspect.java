@@ -20,24 +20,24 @@ import javax.servlet.http.HttpServletRequest;
 @Aspect
 public class MyAspect {
 
-    @Autowired
-    private HttpServletRequest httpServletRequest;
+	@Autowired
+	private HttpServletRequest httpServletRequest;
 
-    @Pointcut("execution(* dp.springboot_aop.*.*(..))")
-    public void myPointcut() {
-    }
+	@Pointcut("execution(* dp.springboot_aop.*.*(..))")
+	public void myPointcut() {
+	}
 
-    @Before("myPointcut()")
-    public int testAop(JoinPoint joinPoint) {
-        String servletPath = httpServletRequest.getServletPath();
-        System.out.println(servletPath);
-        System.out.println("参数列表如下:");
-        for (Object o : joinPoint.getArgs()) {
-            System.out.println(o.toString());
-        }
-        if(servletPath.equals("/test2")) {
-            throw new RuntimeException("异常了");
-        }
-        return 6666;
-    }
+	@Before("myPointcut()")
+	public int testAop(JoinPoint joinPoint) {
+		String servletPath = httpServletRequest.getServletPath();
+		System.out.println(servletPath);
+		System.out.println("参数列表如下:");
+		for (Object o : joinPoint.getArgs()) {
+			System.out.println(o.toString());
+		}
+		if (servletPath.equals("/test2")) {
+			throw new RuntimeException("异常了");
+		}
+		return 6666;
+	}
 }

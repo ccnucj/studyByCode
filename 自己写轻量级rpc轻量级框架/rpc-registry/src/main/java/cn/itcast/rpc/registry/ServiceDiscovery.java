@@ -1,20 +1,18 @@
 package cn.itcast.rpc.registry;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ThreadLocalRandom;
-
-import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.ZooKeeper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ThreadLocalRandom;
+
 /**
  * 本类用于client发现server节点的变化 ，实现负载均衡
- *
  */
 public class ServiceDiscovery {
 
@@ -29,7 +27,7 @@ public class ServiceDiscovery {
 
 	/**
 	 * zk链接
-	 * 
+	 *
 	 * @param registryAddress
 	 */
 	public ServiceDiscovery(String registryAddress) {
@@ -43,7 +41,7 @@ public class ServiceDiscovery {
 
 	/**
 	 * 发现新节点
-	 * 
+	 *
 	 * @return
 	 */
 	public String discover() {
@@ -64,7 +62,7 @@ public class ServiceDiscovery {
 
 	/**
 	 * 链接
-	 * 
+	 *
 	 * @return
 	 */
 	private ZooKeeper connectServer() {
@@ -87,7 +85,7 @@ public class ServiceDiscovery {
 
 	/**
 	 * 监听
-	 * 
+	 *
 	 * @param zk
 	 */
 	private void watchNode(final ZooKeeper zk) {

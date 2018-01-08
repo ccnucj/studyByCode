@@ -290,6 +290,7 @@ public class PairingHeap<AnyType extends Comparable<? super AnyType>> {
 		public PairNode<AnyType> leftChild;
 		public PairNode<AnyType> nextSibling;
 		public PairNode<AnyType> prev;
+
 		/**
 		 * Construct the PairNode.
 		 *

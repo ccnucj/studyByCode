@@ -39,16 +39,16 @@ public class Sort {
 		}
 	}
 
-	public static void quick(int[] number){
+	public static void quick(int[] number) {
 		if (number.length > 0) {
-			quickSort(number,0,number.length -1);
+			quickSort(number, 0, number.length - 1);
 		}
 	}
 
 	@Test
 	public void m1() {
 		int[] numer = new int[5];
-		for (int i = 0; i< 5;i++) {
+		for (int i = 0; i < 5; i++) {
 			Random random = new Random();
 			numer[i] = random.nextInt(10);
 		}

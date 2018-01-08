@@ -8,7 +8,7 @@ import java.lang.reflect.Method;
 
 /**
  * 使方法区出现内存溢出异常
- *
+ * <p>
  * jvm 参数   -XX:MaxMetaspaceSize=10m
  *
  * @author chenjie
@@ -16,19 +16,20 @@ import java.lang.reflect.Method;
  */
 public class JavaMethodAreaOOM {
 
-    public static void main(String[] args) {
-        while (true) {
-            Enhancer enhancer = new Enhancer();
-            enhancer.setSuperclass(OOMObject.class);
-            enhancer.setUseCache(false);
-            enhancer.setCallback(new MethodInterceptor() {
-                public Object intercept(Object o, Method method, Object[] objects, MethodProxy methodProxy) throws Throwable {
-                    return methodProxy.invokeSuper(o,objects);
-                }
-            });
-            enhancer.create();
-        }
-    }
+	public static void main(String[] args) {
+		while (true) {
+			Enhancer enhancer = new Enhancer();
+			enhancer.setSuperclass(OOMObject.class);
+			enhancer.setUseCache(false);
+			enhancer.setCallback(new MethodInterceptor() {
+				public Object intercept(Object o, Method method, Object[] objects, MethodProxy methodProxy) throws Throwable {
+					return methodProxy.invokeSuper(o, objects);
+				}
+			});
+			enhancer.create();
+		}
+	}
 
-    static class OOMObject {}
+	static class OOMObject {
+	}
 }

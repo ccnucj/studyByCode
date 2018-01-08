@@ -1,39 +1,28 @@
 package cn.itcast.rpc.client;
 
-import io.netty.bootstrap.Bootstrap;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelOption;
-import io.netty.channel.EventLoopGroup;
-import io.netty.channel.SimpleChannelInboundHandler;
-import io.netty.channel.nio.NioEventLoopGroup;
-import io.netty.channel.socket.SocketChannel;
-import io.netty.channel.socket.nio.NioSocketChannel;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import cn.itcast.rpc.common.RpcDecoder;
 import cn.itcast.rpc.common.RpcEncoder;
 import cn.itcast.rpc.common.RpcRequest;
 import cn.itcast.rpc.common.RpcResponse;
+import io.netty.bootstrap.Bootstrap;
+import io.netty.channel.*;
+import io.netty.channel.nio.NioEventLoopGroup;
+import io.netty.channel.socket.SocketChannel;
+import io.netty.channel.socket.nio.NioSocketChannel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 框架的RPC 客户端（用于发送 RPC 请求）
- *
  */
 public class RpcClient extends SimpleChannelInboundHandler<RpcResponse> {
 
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(RpcClient.class);
-
+	private final Object obj = new Object();
 	private String host;
 	private int port;
-
 	private RpcResponse response;
-
-	private final Object obj = new Object();
 
 	public RpcClient(String host, int port) {
 		this.host = host;
@@ -42,7 +31,7 @@ public class RpcClient extends SimpleChannelInboundHandler<RpcResponse> {
 
 	/**
 	 * 链接服务端，发送消息
-	 * 
+	 *
 	 * @param request
 	 * @return
 	 * @throws Exception

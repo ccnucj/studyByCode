@@ -1,17 +1,16 @@
 package cn.itcast.rpc.client;
 
+import cn.itcast.rpc.common.RpcRequest;
+import cn.itcast.rpc.common.RpcResponse;
+import cn.itcast.rpc.registry.ServiceDiscovery;
+
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.UUID;
 
-import cn.itcast.rpc.common.RpcRequest;
-import cn.itcast.rpc.common.RpcResponse;
-import cn.itcast.rpc.registry.ServiceDiscovery;
-
 /**
  * RPC 代理（用于创建 RPC 服务代理）
- *
  */
 public class RpcProxy {
 
@@ -28,16 +27,16 @@ public class RpcProxy {
 
 	/**
 	 * 创建代理
-	 * 
+	 *
 	 * @param interfaceClass
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
 	public <T> T create(Class<?> interfaceClass) {
 		return (T) Proxy.newProxyInstance(interfaceClass.getClassLoader(),
-				new Class<?>[] { interfaceClass }, new InvocationHandler() {
+				new Class<?>[]{interfaceClass}, new InvocationHandler() {
 					public Object invoke(Object proxy, Method method,
-							Object[] args) throws Throwable {
+					                     Object[] args) throws Throwable {
 						//创建RpcRequest，封装被代理类的属性
 						RpcRequest request = new RpcRequest();
 						request.setRequestId(UUID.randomUUID().toString());

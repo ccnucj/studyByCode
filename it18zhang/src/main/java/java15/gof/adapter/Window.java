@@ -5,26 +5,26 @@ package java15.gof.adapter;
  */
 public class Window {
 
-    private int size;
-    private int location;
+	private int size;
+	private int location;
 
-    public int getSize() {
-        return size;
-    }
+	public int getSize() {
+		return size;
+	}
 
-    public void setSize(int size) {
-        this.size = size;
-    }
+	public void setSize(int size) {
+		this.size = size;
+	}
 
-    public int getLocation() {
-        return location;
-    }
+	public int getLocation() {
+		return location;
+	}
 
-    public void setLocation(int location) {
-        this.location = location;
-    }
+	public void setLocation(int location) {
+		this.location = location;
+	}
 
-    public void setWindowListener(WindowListener l) {
-        l.onMax();
-    }
+	public void setWindowListener(WindowListener l) {
+		l.onMax();
+	}
 }

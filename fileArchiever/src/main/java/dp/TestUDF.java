@@ -17,29 +17,29 @@ import java.util.Map;
  */
 public class TestUDF {
 
-    @Test
-    public void test() throws Exception {
-        FileReader mysql = new FileReader("F:\\数据工厂\\udf_from_mysql.txt");
-        FileReader hive = new FileReader("F:\\数据工厂\\hive_udf.txt");
+	@Test
+	public void test() throws Exception {
+		FileReader mysql = new FileReader("F:\\数据工厂\\udf_from_mysql.txt");
+		FileReader hive = new FileReader("F:\\数据工厂\\hive_udf.txt");
 
-        BufferedReader mysqlBuf = new BufferedReader(mysql);
-        BufferedReader hiveBuf = new BufferedReader(hive);
+		BufferedReader mysqlBuf = new BufferedReader(mysql);
+		BufferedReader hiveBuf = new BufferedReader(hive);
 
-        Map<String,String> hiveMap = new HashMap<String, String>(100);
-        List<String> mysqlList = new ArrayList<String>(100);
-        String line1 = null;
-        while ((line1 = hiveBuf.readLine()) != null) {
-            String udf = line1.trim();
-            hiveMap.put(udf,"");
-        }
-        while ((line1 = mysqlBuf.readLine()) != null){
-            String udfFromMysql = line1.trim();
-            if (hiveMap.get(udfFromMysql) == null){
-                mysqlList.add(udfFromMysql);
-            } else {
-                System.out.println(udfFromMysql);
-            }
-        }
-        System.out.println(mysqlList);
-    }
+		Map<String, String> hiveMap = new HashMap<String, String>(100);
+		List<String> mysqlList = new ArrayList<String>(100);
+		String line1 = null;
+		while ((line1 = hiveBuf.readLine()) != null) {
+			String udf = line1.trim();
+			hiveMap.put(udf, "");
+		}
+		while ((line1 = mysqlBuf.readLine()) != null) {
+			String udfFromMysql = line1.trim();
+			if (hiveMap.get(udfFromMysql) == null) {
+				mysqlList.add(udfFromMysql);
+			} else {
+				System.out.println(udfFromMysql);
+			}
+		}
+		System.out.println(mysqlList);
+	}
 }

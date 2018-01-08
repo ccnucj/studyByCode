@@ -30,8 +30,8 @@ import java.util.Map;
  * 由于本类实现了ApplicationContextAware InitializingBean
  * spring构造本对象时会调用setApplicationContext()方法，从而可以在方法中通过自定义注解获得用户的业务接口和实现
  * 还会调用afterPropertiesSet()方法，在方法中启动netty服务器
- * @author blackcoder
  *
+ * @author blackcoder
  */
 public class RpcServer implements ApplicationContextAware, InitializingBean {
 
@@ -77,7 +77,6 @@ public class RpcServer implements ApplicationContextAware, InitializingBean {
 	 * 1、接收请求数据进行反序列化得到request对象
 	 * 2、根据request中的参数，让RpcHandler从handlerMap中找到对应的业务imple，调用指定方法，获取返回结果
 	 * 3、将业务调用结果封装到response并序列化后发往客户端
-	 *
 	 */
 	public void afterPropertiesSet() throws Exception {
 		EventLoopGroup bossGroup = new NioEventLoopGroup();
@@ -99,7 +98,7 @@ public class RpcServer implements ApplicationContextAware, InitializingBean {
 					}).option(ChannelOption.SO_BACKLOG, 128)
 					.childOption(ChannelOption.SO_KEEPALIVE, true);
 
-			
+
 			String[] array = serverAddress.split(":");
 			String host = array[0];
 			int port = Integer.parseInt(array[1]);

@@ -5,22 +5,18 @@ import cn.itcast.rpc.common.RpcResponse;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Method;
 import java.util.Map;
-
-import net.sf.cglib.reflect.FastClass;
-import net.sf.cglib.reflect.FastMethod;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * 处理具体的业务调用
  * 通过构造时传入的“业务接口及实现”handlerMap，来调用客户端所请求的业务方法
  * 并将业务方法返回值封装成response对象写入下一个handler（即编码handler——RpcEncoder）
- * @author blackcoder
  *
+ * @author blackcoder
  */
 public class RpcHandler extends SimpleChannelInboundHandler<RpcRequest> {
 
@@ -55,25 +51,25 @@ public class RpcHandler extends SimpleChannelInboundHandler<RpcRequest> {
 	/**
 	 * 根据request来处理具体的业务调用
 	 * 调用是通过反射的方式来完成
-	 * 
+	 *
 	 * @param request
 	 * @return
 	 * @throws Throwable
 	 */
 	private Object handle(RpcRequest request) throws Throwable {
 		String className = request.getClassName();
-		
+
 		//拿到实现类对象
 		Object serviceBean = handlerMap.get(className);
-		
+
 		//拿到要调用的方法名、参数类型、参数值
 		String methodName = request.getMethodName();
 		Class<?>[] parameterTypes = request.getParameterTypes();
 		Object[] parameters = request.getParameters();
-		
+
 		//拿到接口类
 		Class<?> forName = Class.forName(className);
-		
+
 		//调用实现类对象的指定方法并返回结果
 		Method method = forName.getMethod(methodName, parameterTypes);
 		return method.invoke(serviceBean, parameters);

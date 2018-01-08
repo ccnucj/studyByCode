@@ -1,14 +1,14 @@
 package cn.itcast.rpc.sample.app;
 
+import cn.itcast.rpc.client.RpcProxy;
+import cn.itcast.rpc.simple.client.HelloService;
+import cn.itcast.rpc.simple.client.Person;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import cn.itcast.rpc.client.RpcProxy;
-import cn.itcast.rpc.simple.client.HelloService;
-import cn.itcast.rpc.simple.client.Person;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:spring.xml")
 public class HelloServiceTest {
@@ -20,7 +20,7 @@ public class HelloServiceTest {
 	public void helloTest1() {
 		// 调用代理的create方法，代理HelloService接口
 		HelloService helloService = rpcProxy.create(HelloService.class);
-		
+
 		// 调用代理的方法，执行invoke
 		String result = helloService.hello("World");
 		System.out.println("服务端返回结果：");

@@ -1,11 +1,11 @@
 package java15.gof.adapter;
 
 public interface WindowListener {
-    public void onMin();
+	public void onMin();
 
-    public void onMax();
+	public void onMax();
 
-    public void onClose();
+	public void onClose();
 
-    public void onResize();
+	public void onResize();
 }

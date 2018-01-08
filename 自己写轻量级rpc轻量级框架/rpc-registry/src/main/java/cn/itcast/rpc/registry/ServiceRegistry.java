@@ -1,7 +1,5 @@
 package cn.itcast.rpc.registry;
 
-import java.util.concurrent.CountDownLatch;
-
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.Watcher;
@@ -10,9 +8,10 @@ import org.apache.zookeeper.ZooKeeper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.concurrent.CountDownLatch;
+
 /**
  * 服务注册 ，ZK 在该架构中扮演了“服务注册表”的角色，用于注册所有服务器的地址与端口，并对客户端提供服务发现的功能
- * 
  */
 public class ServiceRegistry {
 
@@ -30,7 +29,7 @@ public class ServiceRegistry {
 
 	/**
 	 * 创建zookeeper链接
-	 * 
+	 *
 	 * @param data
 	 */
 	public void register(String data) {
@@ -44,7 +43,7 @@ public class ServiceRegistry {
 
 	/**
 	 * 创建zookeeper链接，监听
-	 * 
+	 *
 	 * @return
 	 */
 	private ZooKeeper connectServer() {
@@ -67,7 +66,7 @@ public class ServiceRegistry {
 
 	/**
 	 * 创建节点
-	 * 
+	 *
 	 * @param zk
 	 * @param data
 	 */

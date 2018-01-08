@@ -3,28 +3,28 @@ package java16.seq;
 import java.io.Serializable;
 
 public class Cat implements Serializable {
-    private static final long serialVersionUID = 718380935795444836L;
-    private String name;
+	private static final long serialVersionUID = 718380935795444836L;
+	private String name;
 
-    private Person owner;
+	private Person owner;
 
-    public Cat(String name) {
-        this.name = name;
-    }
+	public Cat(String name) {
+		this.name = name;
+	}
 
-    public Person getOwner() {
-        return owner;
-    }
+	public Person getOwner() {
+		return owner;
+	}
 
-    public void setOwner(Person owner) {
-        this.owner = owner;
-    }
+	public void setOwner(Person owner) {
+		this.owner = owner;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 }

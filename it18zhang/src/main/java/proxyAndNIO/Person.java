@@ -5,43 +5,43 @@ package proxyAndNIO;
  */
 public class Person {
 
-    private String name;
+	private String name;
 
-    private int age;
+	private int age;
 
-    private boolean married;
+	private boolean married;
 
-    public Person() {
-    }
+	public Person() {
+	}
 
-    public boolean isMarried() {
-        return married;
-    }
-
-
-    public void setMarried(boolean married) {
-        this.married = married;
-    }
+	public boolean isMarried() {
+		return married;
+	}
 
 
-    public int getAge() {
-        return age;
-    }
+	public void setMarried(boolean married) {
+		this.married = married;
+	}
 
-    public void setAge(int age) {
-        this.age = age;
-    }
 
-    public String getName() {
-        return name;
-    }
+	public int getAge() {
+		return age;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setAge(int age) {
+		this.age = age;
+	}
 
-    private void setName(String x, String y) {
-        this.name = x + " : " + y;
-    }
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	private void setName(String x, String y) {
+		this.name = x + " : " + y;
+	}
 }
 

@@ -15,7 +15,7 @@ public class MaxTempReducer extends Reducer<Text, IntWritable, Text, IntWritable
 	 * reduce
 	 */
 	protected void reduce(Text key, Iterable<IntWritable> values,
-			Context context) throws IOException, InterruptedException {
+	                      Context context) throws IOException, InterruptedException {
 		//最大值
 		int maxValue = Integer.MIN_VALUE;
 

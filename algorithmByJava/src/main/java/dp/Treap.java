@@ -262,6 +262,7 @@ public class Treap<AnyType extends Comparable<? super AnyType>> {
 		TreapNode<AnyType> left;         // Left child
 		TreapNode<AnyType> right;        // Right child
 		int priority;     // Priority
+
 		// Constructors
 		TreapNode(AnyType theElement) {
 			this(theElement, null, null);

@@ -58,9 +58,9 @@ public class App {
 	@Test
 	public void m12() {
 		Map<String, String> map = new HashMap<String, String>() {{
-			put("11",null);
-			put("22","2222");
-			put("33","3333");
+			put("11", null);
+			put("22", "2222");
+			put("33", "3333");
 		}};
 		System.out.println(map.get("11"));
 		System.out.println(map.containsKey("11"));
@@ -81,11 +81,11 @@ public class App {
 			add("tb7");
 			add("tb8");
 		}};
-		Map<String,List<String>> map = new HashMap<String, List<String>>() {{
-			put("db1",list);
-			put("db2",list1);
+		Map<String, List<String>> map = new HashMap<String, List<String>>() {{
+			put("db1", list);
+			put("db2", list1);
 		}};
-		System.out.println(map.toString().replaceAll("=",""));
+		System.out.println(map.toString().replaceAll("=", ""));
 	}
 
 	@Test

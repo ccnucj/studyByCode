@@ -1,7 +1,5 @@
 package dp;
 
-import org.junit.Test;
-
 import java.util.Comparator;
 
 /**
@@ -20,6 +18,16 @@ public class Shape {
 		this.area = area;
 	}
 
+	public static Shape findMax(Shape[] arr, Comparator<Shape> cmp) {
+		int maxIndex = 0;
+		for (int i = 1; i < arr.length; i++) {
+			if (cmp.compare(arr[i], arr[maxIndex]) > 0) {
+				maxIndex = i;
+			}
+		}
+		return arr[maxIndex];
+	}
+
 	public double getLength() {
 		return length;
 	}
@@ -34,16 +42,6 @@ public class Shape {
 
 	public void setArea(double area) {
 		this.area = area;
-	}
-
-	public static Shape findMax(Shape[] arr, Comparator<Shape> cmp) {
-		int maxIndex = 0;
-		for (int i = 1; i < arr.length; i++) {
-			if (cmp.compare(arr[i], arr[maxIndex]) > 0) {
-				maxIndex = i;
-			}
-		}
-		return arr[maxIndex];
 	}
 
 }

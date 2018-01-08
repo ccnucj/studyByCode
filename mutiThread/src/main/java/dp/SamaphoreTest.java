@@ -1,6 +1,5 @@
 package dp;
 
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
@@ -15,6 +14,13 @@ public class SamaphoreTest extends Thread {
 
 	Semaphore semaphore = new Semaphore(5);
 
+	public static void main(String[] args) {
+		ExecutorService exec = Executors.newFixedThreadPool(20);
+		final SamaphoreTest samaphoreTest = new SamaphoreTest();
+		for (int i = 0; i < 20; i++) {
+			exec.submit(samaphoreTest);
+		}
+	}
 
 	@Override
 	public void run() {
@@ -28,13 +34,5 @@ public class SamaphoreTest extends Thread {
 			e.printStackTrace();
 		}
 
-	}
-
-	public static void main(String[] args) {
-		ExecutorService exec = Executors.newFixedThreadPool(20);
-		final SamaphoreTest samaphoreTest = new SamaphoreTest();
-		for (int i = 0; i < 20; i++) {
-			exec.submit(samaphoreTest);
-		}
 	}
 }
