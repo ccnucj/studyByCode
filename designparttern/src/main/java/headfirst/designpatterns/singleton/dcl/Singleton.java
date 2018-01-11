@@ -6,7 +6,7 @@ package headfirst.designpatterns.singleton.dcl;
 //
 
 public class Singleton {
-	private volatile static Singleton uniqueInstance;
+	private volatile static Singleton uniqueInstance;     //关键字 volatile
  
 	private Singleton() {}
  

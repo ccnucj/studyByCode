@@ -1,5 +1,9 @@
 package headfirst.designpatterns.strategy;
 
+
+/**
+ * 策略模式
+ */
 public abstract class Duck {
 	FlyBehavior flyBehavior;
 	QuackBehavior quackBehavior;

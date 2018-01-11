@@ -10,7 +10,7 @@ public class InputTest {
 			InputStream in = 
 				new LowerCaseInputStream(
 					new BufferedInputStream(
-						new FileInputStream("test.txt")));
+						new FileInputStream("/Users/chenjie/Desktop/studyByCode/designparttern/src/main/java/headfirst/designpatterns/decorator/io/test.txt")));
 
 			while((c = in.read()) >= 0) {
 				System.out.print((char)c);
