@@ -94,8 +94,21 @@ public class App {
 		bbb.setKey("vvvvv");
 		String key = ((Map<String, String>) bbb).get("key");
 		System.out.println(key);
+	}
 
-
+	/**
+	 * 1. 测试子类继承父类时，若父类构造函数抛出了异常，子类也必须抛出异常
+	 * 2. 你的超类构造器声明了异常，所以你必须写一个构造器，因为这意味着你的构造器
+	 * 正在调用不安全的代码（它的超类构造器）-----head first设计模式一书
+	 *
+	 */
+	@Test
+	public void m15() {
+		try {
+			System.out.println(new CCC());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 
@@ -112,3 +125,23 @@ class BBB {
 		this.key = key;
 	}
 }
+
+class Base {
+	public Base() throws Exception{
+		System.out.println("Base类的空构造函数被调用");
+	}
+}
+
+class CCC extends Base {
+
+	public CCC() throws Exception {     //此处必须在构造函数中抛出异常，因为基类的构造函数抛出了异常
+		System.out.println("CCC类的空构造函数被调用");
+	}
+
+	@Override
+	public String toString() {
+		return "CCC{}";
+	}
+}
+
+
