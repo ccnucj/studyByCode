@@ -33,6 +33,7 @@ class ImageProxy implements Icon {
 	}
      
 	public void paintIcon(final Component c, Graphics  g, int x,  int y) {
+		System.out.println("测试中...." + System.currentTimeMillis());
 		if (imageIcon != null) {
 			imageIcon.paintIcon(c, g, x, y);
 		} else {
