@@ -31,8 +31,12 @@ class ImageProxy implements Icon {
 	synchronized void setImageIcon(ImageIcon imageIcon) {
 		this.imageIcon = imageIcon;
 	}
-     
+
+
 	public void paintIcon(final Component c, Graphics  g, int x,  int y) {
+		/**
+		 * 测试虚拟代理对象调用的次数
+		 */
 		System.out.println("测试中...." + System.currentTimeMillis());
 		if (imageIcon != null) {
 			imageIcon.paintIcon(c, g, x, y);

@@ -111,6 +111,18 @@ public class App {
 		}
 	}
 
+	@Test
+	public void m16() {
+		CCC ccc = null;
+		try {
+			ccc = new CCC();
+		} catch (Exception ex) {
+
+		}
+		System.out.println(ccc instanceof Base);
+
+	}
+
 
 }
 
