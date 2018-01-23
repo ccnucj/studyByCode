@@ -157,7 +157,6 @@ public class AAA {
 		map.put(hiveAuthRecord1, 1);
 		map.put(hiveAuthRecord2, 1);
 		System.out.println(map.size());
-
 	}
 
 	static class BBB {
