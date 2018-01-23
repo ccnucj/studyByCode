@@ -5,8 +5,8 @@ package book.code.chapter5.parallel_compute;
  */
 public class Msg {
 
-    public double i;
-    public double j;
-    public String orgStr = null;
+	public double i;
+	public double j;
+	public String orgStr = null;
 
 }

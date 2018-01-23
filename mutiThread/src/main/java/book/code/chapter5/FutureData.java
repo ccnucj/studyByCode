@@ -5,29 +5,29 @@ package book.code.chapter5;
  */
 public class FutureData implements Data {
 
-    protected RealData realData = null;
-    protected boolean isReady = false;
+	protected RealData realData = null;
+	protected boolean isReady = false;
 
-    public synchronized void setRealData(RealData realData) {
-        if (isReady) {
-            return;
-        }
-        this.realData = realData;
-        isReady = true;
-        notifyAll();//RealData�Ѿ���ע��,֪ͨgetResult
-    }
+	public synchronized void setRealData(RealData realData) {
+		if (isReady) {
+			return;
+		}
+		this.realData = realData;
+		isReady = true;
+		notifyAll();//RealData�Ѿ���ע��,֪ͨgetResult
+	}
 
 
-    @Override
-    public synchronized String getResult() {
-        while (!isReady) {
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+	@Override
+	public synchronized String getResult() {
+		while (!isReady) {
+			try {
+				wait();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 
-        return realData.result;
-    }
+		return realData.result;
+	}
 }

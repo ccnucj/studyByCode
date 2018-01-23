@@ -11,69 +11,68 @@ import java.util.concurrent.Executors;
  * Created by 13 on 2017/5/6.
  */
 public class ThreadLocalDemo_GC {
-    static volatile ThreadLocal<SimpleDateFormat> threadLocal = new ThreadLocal<SimpleDateFormat>() {
-        protected void finalize() throws Throwable {
-            System.out.println(this.toString() + " is gc");
-        }
-    };
+	static volatile ThreadLocal<SimpleDateFormat> threadLocal = new ThreadLocal<SimpleDateFormat>() {
+		protected void finalize() throws Throwable {
+			System.out.println(this.toString() + " is gc");
+		}
+	};
 
-    static volatile CountDownLatch countDownLatch = new CountDownLatch(100);
+	static volatile CountDownLatch countDownLatch = new CountDownLatch(100);
 
-    public static class ParseDate implements Runnable {
-        int i = 0;
+	public static void main(String args[]) throws InterruptedException {
+		ExecutorService executorService = Executors.newFixedThreadPool(10);
+		for (int i = 0; i < 100; i++) {
+			executorService.execute(new ParseDate(i));
+		}
+		countDownLatch.await();
 
-        public ParseDate(int i) {
-            this.i = i;
-        }
+		System.out.println("mission complete!");
 
-        @Override
-        public void run() {
+		threadLocal = null;
+		System.gc();
+		System.out.println("first GC complete!!");
 
-            try {
-                if (threadLocal.get() == null) {
-                    threadLocal.set(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss") {
-                        protected void finalize() throws Throwable {
-                            System.out.println(this.toString() + " is gc");
-                        }
-                    });
-                    System.out.println(Thread.currentThread().getId() + " create SimpleDatFormat");
-                }
-                Date date = threadLocal.get().parse("2017-05-06 12:33:" + i % 60);
-                System.out.println(i + ":" + date);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            } finally {
-                countDownLatch.countDown();
-            }
+		threadLocal = new ThreadLocal<SimpleDateFormat>();
 
-        }
-    }
+		countDownLatch = new CountDownLatch(100);
 
+		for (int i = 0; i < 100; i++) {
+			executorService.execute(new ParseDate(i));
+		}
 
-    public static void main(String args[]) throws InterruptedException {
-        ExecutorService executorService = Executors.newFixedThreadPool(10);
-        for (int i = 0; i < 100; i++) {
-            executorService.execute(new ParseDate(i));
-        }
-        countDownLatch.await();
+		countDownLatch.await();
+		Thread.sleep(1000);
+		System.gc();
+		System.out.println("second GC complete!");
+	}
 
-        System.out.println("mission complete!");
+	public static class ParseDate implements Runnable {
+		int i = 0;
 
-        threadLocal = null;
-        System.gc();
-        System.out.println("first GC complete!!");
+		public ParseDate(int i) {
+			this.i = i;
+		}
 
-        threadLocal = new ThreadLocal<SimpleDateFormat>();
+		@Override
+		public void run() {
 
-        countDownLatch = new CountDownLatch(100);
+			try {
+				if (threadLocal.get() == null) {
+					threadLocal.set(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss") {
+						protected void finalize() throws Throwable {
+							System.out.println(this.toString() + " is gc");
+						}
+					});
+					System.out.println(Thread.currentThread().getId() + " create SimpleDatFormat");
+				}
+				Date date = threadLocal.get().parse("2017-05-06 12:33:" + i % 60);
+				System.out.println(i + ":" + date);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			} finally {
+				countDownLatch.countDown();
+			}
 
-        for (int i = 0; i < 100; i++) {
-            executorService.execute(new ParseDate(i));
-        }
-
-        countDownLatch.await();
-        Thread.sleep(1000);
-        System.gc();
-        System.out.println("second GC complete!");
-    }
+		}
+	}
 }

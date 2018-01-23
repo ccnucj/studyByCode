@@ -10,46 +10,45 @@ import java.util.concurrent.TimeUnit;
  */
 public class ExtThreadPool {
 
-    public static class MyTask implements Runnable {
-        public String name;
+	public static void main(String args[]) throws InterruptedException {
+		ExecutorService executorService = new ThreadPoolExecutor(5, 5, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingDeque<Runnable>()) {
+			protected void beforeExecute(Thread t, Runnable r) {
+				System.out.println("׼��ִ��:" + ((MyTask) r).name);
+			}
 
-        public MyTask(String name) {
-            this.name = name;
-        }
+			protected void afterExecute(Thread t, Runnable r) {
+				System.out.println("ִ�����:" + ((MyTask) r).name);
+			}
 
-        @Override
-        public void run() {
-            System.out.println("����ִ��:Thread ID:" + Thread.currentThread().getId() + ",Task Name:" + name);
+			protected void terminated() {
+				System.out.println("�̳߳��˳�!");
+			}
+		};
 
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+		for (int i = 0; i < 5; i++) {
+			MyTask task = new MyTask("TASK-GEYM-" + i);
+			executorService.execute(task);
+			Thread.sleep(10);
+		}
+		executorService.shutdown();
+	}
 
+	public static class MyTask implements Runnable {
+		public String name;
 
-    public static void main(String args[]) throws InterruptedException {
-        ExecutorService executorService = new ThreadPoolExecutor(5, 5, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingDeque<Runnable>()) {
-            protected void beforeExecute(Thread t, Runnable r) {
-                System.out.println("׼��ִ��:" + ((MyTask) r).name);
-            }
+		public MyTask(String name) {
+			this.name = name;
+		}
 
-            protected void afterExecute(Thread t, Runnable r) {
-                System.out.println("ִ�����:" + ((MyTask) r).name);
-            }
+		@Override
+		public void run() {
+			System.out.println("����ִ��:Thread ID:" + Thread.currentThread().getId() + ",Task Name:" + name);
 
-            protected void terminated() {
-                System.out.println("�̳߳��˳�!");
-            }
-        };
-
-        for (int i = 0; i < 5; i++) {
-            MyTask task = new MyTask("TASK-GEYM-" + i);
-            executorService.execute(task);
-            Thread.sleep(10);
-        }
-        executorService.shutdown();
-    }
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }

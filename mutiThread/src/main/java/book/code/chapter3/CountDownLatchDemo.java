@@ -10,30 +10,30 @@ import java.util.concurrent.Executors;
  * Created by 13 on 2017/5/5.
  */
 public class CountDownLatchDemo implements Runnable {
-    static final CountDownLatch end = new CountDownLatch(10);
-    static final CountDownLatchDemo demo = new CountDownLatchDemo();
+	static final CountDownLatch end = new CountDownLatch(10);
+	static final CountDownLatchDemo demo = new CountDownLatchDemo();
 
-    @Override
-    public void run() {
+	public static void main(String args[]) throws InterruptedException {
+		ExecutorService executorService = Executors.newFixedThreadPool(10);
+		for (int i = 0; i < 10; i++) {
+			executorService.submit(demo);
+		}
+		//等待检查
+		end.await();
+		//倒计时完毕发射火箭
+		System.out.println("Fire!");
+		executorService.shutdown();
+	}
 
-        try {
-            Thread.sleep(new Random().nextInt(3) * 1000);
-            System.out.println("check complete");
-            end.countDown();     //倒计时减一
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
+	@Override
+	public void run() {
 
-    public static void main(String args[]) throws InterruptedException {
-        ExecutorService executorService = Executors.newFixedThreadPool(10);
-        for (int i = 0; i < 10; i++) {
-            executorService.submit(demo);
-        }
-        //等待检查
-        end.await();
-        //倒计时完毕发射火箭
-        System.out.println("Fire!");
-        executorService.shutdown();
-    }
+		try {
+			Thread.sleep(new Random().nextInt(3) * 1000);
+			System.out.println("check complete");
+			end.countDown();     //倒计时减一
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
 }

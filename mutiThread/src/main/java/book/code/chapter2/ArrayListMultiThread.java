@@ -6,52 +6,52 @@ import java.util.ArrayList;
  * Created by 13 on 2017/5/4.
  */
 public class ArrayListMultiThread {
-    static ArrayList<Integer> arrayList = new ArrayList<Integer>(10);
+	static ArrayList<Integer> arrayList = new ArrayList<Integer>(10);
 
-    public static class AddThread implements Runnable {
+	/**
+	 * ArrayList��һ���̲߳���ȫ������,���̲߳���ʱ����ֳ�ͻ,������Ϣ����:
+	 * Exception in thread "Thread-1" java.lang.ArrayIndexOutOfBoundsException: 22
+	 * at java.util.ArrayList.add(ArrayList.java:441)
+	 * at chapter2.ArrayListMultiThread$AddThread.run(ArrayListMultiThread.java:27)
+	 * at java.lang.Thread.run(Thread.java:745)
+	 * <p>
+	 * Vector��һ���̰߳�ȫ������,���Դ���ArrayList
+	 *
+	 * @param args
+	 * @throws InterruptedException
+	 */
+	public static void main(String args[]) throws InterruptedException {
+		Thread thread1 = new Thread(new AddThread());
+		Thread thread2 = new Thread(new AddThread());
 
-        /**
-         * When an object implementing interface <code>Runnable</code> is used
-         * to create a thread, starting the thread causes the object's
-         * <code>run</code> method to be called in that separately executing
-         * thread.
-         * <p/>
-         * The general contract of the method <code>run</code> is that it may
-         * take any action whatsoever.
-         *
-         * @see Thread#run()
-         */
-        @Override
-        public void run() {
-            for (int i = 0; i < 10000; i++) {
-                arrayList.add(i);
-            }
-        }
-    }
+		thread1.start();
+		thread2.start();
 
-    /**
-     * ArrayList��һ���̲߳���ȫ������,���̲߳���ʱ����ֳ�ͻ,������Ϣ����:
-     * Exception in thread "Thread-1" java.lang.ArrayIndexOutOfBoundsException: 22
-     * at java.util.ArrayList.add(ArrayList.java:441)
-     * at chapter2.ArrayListMultiThread$AddThread.run(ArrayListMultiThread.java:27)
-     * at java.lang.Thread.run(Thread.java:745)
-     *
-     * Vector��һ���̰߳�ȫ������,���Դ���ArrayList
-     *
-     * @param args
-     * @throws InterruptedException
-     */
-    public static void main(String args[]) throws InterruptedException {
-        Thread thread1 = new Thread(new AddThread());
-        Thread thread2 = new Thread(new AddThread());
+		thread1.join();
+		thread2.join();
 
-        thread1.start();
-        thread2.start();
+		System.out.println(arrayList.size());
+	}
 
-        thread1.join();
-        thread2.join();
+	public static class AddThread implements Runnable {
 
-        System.out.println(arrayList.size());
-    }
+		/**
+		 * When an object implementing interface <code>Runnable</code> is used
+		 * to create a thread, starting the thread causes the object's
+		 * <code>run</code> method to be called in that separately executing
+		 * thread.
+		 * <p/>
+		 * The general contract of the method <code>run</code> is that it may
+		 * take any action whatsoever.
+		 *
+		 * @see Thread#run()
+		 */
+		@Override
+		public void run() {
+			for (int i = 0; i < 10000; i++) {
+				arrayList.add(i);
+			}
+		}
+	}
 
 }

@@ -4,33 +4,33 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 
 public class AtomicIntegerDemo {
-    static AtomicInteger i = new AtomicInteger();
+	static AtomicInteger i = new AtomicInteger();
 
-    public static class AddThread implements Runnable {
+	public static void main(String args[]) throws InterruptedException {
 
-        @Override
-        public void run() {
-            for (int j = 0; j < 10002; j++) {
-                i.incrementAndGet();
-            }
-        }
-    }
+		Thread[] threads = new Thread[10];
 
-    public static void main(String args[]) throws InterruptedException {
+		for (int j = 0; j < 10; j++) {
+			threads[j] = new Thread(new AddThread());
+		}
 
-        Thread[] threads = new Thread[10];
+		for (int j = 0; j < 10; j++) {
+			threads[j].start();
+		}
+		for (int j = 0; j < 10; j++) {
+			threads[j].join();
+		}
 
-        for (int j = 0; j < 10; j++) {
-            threads[j] = new Thread(new AddThread());
-        }
+		System.out.println(i);
+	}
 
-        for (int j = 0; j < 10; j++) {
-            threads[j].start();
-        }
-        for (int j = 0; j < 10; j++) {
-            threads[j].join();
-        }
+	public static class AddThread implements Runnable {
 
-        System.out.println(i);
-    }
+		@Override
+		public void run() {
+			for (int j = 0; j < 10002; j++) {
+				i.incrementAndGet();
+			}
+		}
+	}
 }

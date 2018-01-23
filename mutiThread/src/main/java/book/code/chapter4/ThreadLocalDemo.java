@@ -7,73 +7,70 @@ import java.util.concurrent.*;
  * Created by 13 on 2017/5/6.
  */
 public class ThreadLocalDemo {
-    public static final int GE_COUNT = 10000000;
-    public static final int THREAD_COUT = 4;
+	public static final int GE_COUNT = 10000000;
+	public static final int THREAD_COUT = 4;
+	public static Random random = new Random(123);
+	public static ThreadLocal<Random> randomThreadLocal = new ThreadLocal<Random>() {
+		protected Random initialValue() {
+			return new Random(123);
+		}
+	};
+	static ExecutorService executorService = Executors.newFixedThreadPool(THREAD_COUT);
 
-    static ExecutorService executorService = Executors.newFixedThreadPool(THREAD_COUT);
-    public static Random random = new Random(123);
+	public static void main(String args[]) throws ExecutionException, InterruptedException {
+		Future<Long>[] futures = new Future[THREAD_COUT];
+		for (int i = 0; i < THREAD_COUT; i++) {
+			futures[i] = executorService.submit(new RandomTask(0));
+		}
 
-    public static ThreadLocal<Random> randomThreadLocal = new ThreadLocal<Random>() {
-        protected Random initialValue() {
-            return new Random(123);
-        }
-    };
+		long totalTime = 0;
+
+		for (int i = 0; i < THREAD_COUT; i++) {
+			totalTime += futures[i].get();
+		}
+		System.out.println("���̷߳���ͬһ��Randomʵ��:" + totalTime + "ms");
+
+		//ThreadLocal�����
+		for (int i = 0; i < THREAD_COUT; i++) {
+			futures[i] = executorService.submit(new RandomTask(1));
+		}
+		totalTime = 0;
+		for (int i = 0; i < THREAD_COUT; i++) {
+			totalTime += futures[i].get();
+		}
+		System.out.println("ʹ��ThreadLocal��װRandomʵ��:" + totalTime + "ms");
+
+	}
+
+	public static class RandomTask implements Callable<Long> {
+
+		private int mode = 0;
+
+		public RandomTask(int mode) {
+			this.mode = mode;
+		}
+
+		public Random getRandom() {
+			if (mode == 0) {
+				return random;
+			} else if (mode == 1) {
+				return randomThreadLocal.get();
+			} else {
+				return null;
+			}
+		}
 
 
-    public static class RandomTask implements Callable<Long> {
+		@Override
+		public Long call() throws Exception {
+			long b = System.currentTimeMillis();
 
-        private int mode = 0;
-
-        public RandomTask(int mode) {
-            this.mode = mode;
-        }
-
-        public Random getRandom() {
-            if (mode == 0) {
-                return random;
-            } else if (mode == 1) {
-                return randomThreadLocal.get();
-            } else {
-                return null;
-            }
-        }
-
-
-        @Override
-        public Long call() throws Exception {
-            long b = System.currentTimeMillis();
-
-            for (int i = 0; i < GE_COUNT; i++) {
-                getRandom().nextInt();
-            }
-            long e = System.currentTimeMillis();
-            System.out.println(Thread.currentThread().getName() + " spend" + (e - b) + "ms");
-            return e - b;
-        }
-    }
-
-    public static void main(String args[]) throws ExecutionException, InterruptedException {
-        Future<Long>[] futures = new Future[THREAD_COUT];
-        for (int i = 0; i < THREAD_COUT; i++) {
-            futures[i] = executorService.submit(new RandomTask(0));
-        }
-
-        long totalTime = 0;
-
-        for (int i = 0; i < THREAD_COUT; i++) {
-            totalTime += futures[i].get();
-        }
-        System.out.println("���̷߳���ͬһ��Randomʵ��:" + totalTime + "ms");
-
-        //ThreadLocal�����
-        for (int i = 0; i < THREAD_COUT; i++) {
-            futures[i] = executorService.submit(new RandomTask(1));
-        }
-        totalTime = 0;
-        for (int i = 0; i < THREAD_COUT; i++) {
-            totalTime += futures[i].get();
-        }
-        System.out.println("ʹ��ThreadLocal��װRandomʵ��:" + totalTime + "ms");
-
-    }
+			for (int i = 0; i < GE_COUNT; i++) {
+				getRandom().nextInt();
+			}
+			long e = System.currentTimeMillis();
+			System.out.println(Thread.currentThread().getName() + " spend" + (e - b) + "ms");
+			return e - b;
+		}
+	}
 }
