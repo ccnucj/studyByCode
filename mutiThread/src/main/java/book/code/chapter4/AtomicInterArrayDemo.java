@@ -19,8 +19,8 @@ public class AtomicInterArrayDemo {
 		}
 		for (int i = 0; i < 10; i++) {
 			threads[i].join();
-			System.out.println(array);
 		}
+		System.out.println(array);
 	}
 
 	public static class AddThread implements Runnable {

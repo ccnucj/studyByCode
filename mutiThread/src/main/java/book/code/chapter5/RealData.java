@@ -8,7 +8,7 @@ public class RealData implements Data {
 	protected final String result;
 
 	public RealData(String param) {
-		//RealData�Ĺ������,��Ҫ�û��ȴ��ܾ�,������sleepģ��
+		//RealData的构造可能很慢，需要用户等很久，这里使用sleep来模拟
 		StringBuffer stringBuffer = new StringBuffer();
 		for (int i = 0; i < 10; i++) {
 			stringBuffer.append(param);

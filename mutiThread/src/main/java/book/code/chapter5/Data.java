@@ -5,5 +5,4 @@ package book.code.chapter5;
  */
 public interface Data {
 	public String getResult();
-
 }

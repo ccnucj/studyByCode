@@ -7,7 +7,7 @@ public class Client {
 	public Data request(final String queryStr) {
 		final FutureData futureData = new FutureData();
 		new Thread() {
-			public void run() {//RealData�Ĺ������,�����ڵ������߳�������
+			public void run() {//RealData的构建很慢，所以在单独的线程中进行
 				RealData realData = new RealData(queryStr);
 				futureData.setRealData(realData);
 			}

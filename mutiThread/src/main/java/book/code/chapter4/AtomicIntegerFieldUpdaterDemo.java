@@ -5,10 +5,11 @@ import java.util.concurrent.atomic.AtomicIntegerFieldUpdater;
 
 /**
  * Created by 13 on 2017/5/6.
+ * 这是一个为候选人投票的案例
  */
 public class AtomicIntegerFieldUpdaterDemo {
 	public final static AtomicIntegerFieldUpdater<Candidate> scoreUpdater = AtomicIntegerFieldUpdater.newUpdater(Candidate.class, "score");
-	//���Updater�Ƿ�����ȷ
+	//检查updater是否工作正确
 	public static AtomicInteger allScore = new AtomicInteger(0);
 
 	public static void main(String args[]) throws InterruptedException {

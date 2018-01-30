@@ -9,7 +9,7 @@ import java.util.concurrent.RecursiveTask;
 /**
  * Created by 13 on 2017/5/5.
  */
-public class CountTask extends RecursiveTask {
+public class CountTask extends RecursiveTask {    //继承RecursiveAction 没有返回结果
 	private static final int THRESHOLD = 10000;
 
 	private long start;
@@ -21,9 +21,9 @@ public class CountTask extends RecursiveTask {
 	}
 
 	public static void main(String args[]) {
-		ForkJoinPool forkJoinPool = new ForkJoinPool();
+		ForkJoinPool forkJoinPool = new ForkJoinPool();   //线程池
 		CountTask task = new CountTask(0, 200000L);
-		ForkJoinTask<Long> result = forkJoinPool.submit(task);
+		ForkJoinTask<Long> result = forkJoinPool.submit(task);  //将一个大的任务提交到线程池
 
 		long res = 0;
 		try {
@@ -37,7 +37,7 @@ public class CountTask extends RecursiveTask {
 	}
 
 	@Override
-	protected Long compute() {
+	protected Long compute() {             //必须自定义重写的方法
 		long sum = 0;
 		boolean canCompute = (end - start) < THRESHOLD;
 		if (canCompute) {
@@ -58,15 +58,14 @@ public class CountTask extends RecursiveTask {
 				CountTask subTask = new CountTask(pos, lastOne);
 				pos += step + 1;
 				subTasks.add(subTask);
-				subTask.fork();
+				subTask.fork();          //fork表示可以分而治之
 			}
-
+			int count = 0;
 			for (CountTask t : subTasks) {
-				sum += (Long) t.join();
+				sum += (Long) t.join();     //获取分支线程的执行结果
+				System.out.println(++count + "次累计的计算结果为" + sum);
 			}
 		}
-
-
 		return sum;
 	}
 }

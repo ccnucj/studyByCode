@@ -13,15 +13,15 @@ public class ExtThreadPool {
 	public static void main(String args[]) throws InterruptedException {
 		ExecutorService executorService = new ThreadPoolExecutor(5, 5, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingDeque<Runnable>()) {
 			protected void beforeExecute(Thread t, Runnable r) {
-				System.out.println("׼��ִ��:" + ((MyTask) r).name);
+				System.out.println("准备执行" + ((MyTask) r).name);
 			}
 
 			protected void afterExecute(Thread t, Runnable r) {
-				System.out.println("ִ�����:" + ((MyTask) r).name);
+				System.out.println("ִ执行完成" + ((MyTask) r).name);
 			}
 
 			protected void terminated() {
-				System.out.println("�̳߳��˳�!");
+				System.out.println("线程池退出");
 			}
 		};
 
@@ -42,7 +42,7 @@ public class ExtThreadPool {
 
 		@Override
 		public void run() {
-			System.out.println("����ִ��:Thread ID:" + Thread.currentThread().getId() + ",Task Name:" + name);
+			System.out.println("正在执行:Thread ID:" + Thread.currentThread().getId() + ",Task Name:" + name);
 
 			try {
 				Thread.sleep(100);

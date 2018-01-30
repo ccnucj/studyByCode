@@ -100,6 +100,28 @@ public class Test {
 		System.out.println(list);
 
 	}
+
+	@org.junit.Test
+	public void m8() {
+		Integer i = 256;
+		int j = 256;
+		System.out.println(i.equals(j));
+	}
+
+
+	/**
+	 * 测试堆溢出
+	 */
+	@org.junit.Test
+	public void m9() {
+		int max = 1024 * 1024 * 100;   //100M
+
+		List<byte[]> list = new ArrayList<byte[]>();
+
+		for (; ; ) {
+			list.add(new byte[max]);
+		}
+	}
 }
 
 class ConstruClass {

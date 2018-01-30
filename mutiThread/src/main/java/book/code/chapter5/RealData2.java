@@ -17,7 +17,7 @@ public class RealData2 implements Callable<String> {
 		StringBuffer stringBuffer = new StringBuffer();
 		for (int i = 0; i < 10; i++) {
 			stringBuffer.append(data);
-			Thread.sleep(100);
+			Thread.sleep(100); //用sleep来模拟缓慢的动作
 		}
 
 		return stringBuffer.toString();

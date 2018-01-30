@@ -8,6 +8,8 @@ public class AtomicIntegerDemo {
 
 	public static void main(String args[]) throws InterruptedException {
 
+		System.out.println("初始值为" + i.get());
+
 		Thread[] threads = new Thread[10];
 
 		for (int j = 0; j < 10; j++) {

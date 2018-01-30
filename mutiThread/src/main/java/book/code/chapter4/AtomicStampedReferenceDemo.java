@@ -4,6 +4,7 @@ import java.util.concurrent.atomic.AtomicStampedReference;
 
 /**
  * Created by 13 on 2017/5/6.
+ * 带有时间戳的引用，不会造成为用户充值多次
  */
 public class AtomicStampedReferenceDemo {
 	static AtomicStampedReference<Integer> money = new AtomicStampedReference<Integer>(19, 0);
@@ -18,11 +19,10 @@ public class AtomicStampedReferenceDemo {
 						Integer m = money.getReference();
 						if (m < 20) {
 							if (money.compareAndSet(m, m + 20, timestap, timestap + 1)) {
-								System.out.println("���С��20Ԫ,��ֵ�ɹ�,���:" + money.getReference() + "Ԫ");
+								System.out.println("余额小于20元，充值成功，余额：" + money.getReference());
 								break;
 							}
 						} else {
-							System.out.println("������20,�����ֵ");
 							break;
 						}
 					}
@@ -38,13 +38,13 @@ public class AtomicStampedReferenceDemo {
 						int timestap = money.getStamp();
 						Integer m = money.getReference();
 						if (m > 10) {
-							System.out.println("������10Ԫ");
+							System.out.println("大于10元");
 							if (money.compareAndSet(m, m - 10, timestap, timestap + 1)) {
-								System.out.println("�ɹ�����10Ԫ,���:" + money.getReference() + "Ԫ");
+								System.out.println("成功消费10元，余额：" + money.getReference());
 								break;
 							}
 						} else {
-							System.out.println("û���㹻�Ľ��");
+							System.out.println("没有足够的金额");
 							break;
 						}
 					}

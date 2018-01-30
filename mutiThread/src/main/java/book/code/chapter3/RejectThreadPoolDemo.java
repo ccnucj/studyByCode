@@ -3,12 +3,17 @@ package book.code.chapter3;
 import java.util.concurrent.*;
 
 /**
+ * 线程池拒绝策略自定义实现
  * Created by 13 on 2017/5/5.
  */
 public class RejectThreadPoolDemo {
 	public static void main(String args[]) throws InterruptedException {
 		MyTask myTask = new MyTask();
 
+		/**
+		 *  ThreadPoolExecutor 构造参数的含义
+		 *
+		 */
 		ExecutorService executorService = new ThreadPoolExecutor(5, 5, 0L, TimeUnit.SECONDS, new LinkedBlockingDeque<Runnable>(10), Executors.defaultThreadFactory()
 				, new RejectedExecutionHandler() {
 			@Override
