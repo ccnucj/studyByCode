@@ -6,6 +6,9 @@ package book.code.chapter5;
 public class Client {
 	public Data request(final String queryStr) {
 		final FutureData futureData = new FutureData();
+		/**
+		 * 一定要开一个线程返回
+		 */
 		new Thread() {
 			public void run() {//RealData的构建很慢，所以在单独的线程中进行
 				RealData realData = new RealData(queryStr);

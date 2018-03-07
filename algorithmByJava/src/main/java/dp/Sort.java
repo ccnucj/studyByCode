@@ -25,7 +25,7 @@ public final class Sort {
 		for (int p = 1; p < a.length; p++) {
 			AnyType tmp = a[p];
 			for (j = p; j > 0 && tmp.compareTo(a[j - 1]) < 0; j--)
-				a[j] = a[j - 1];
+				a[j] = a[j - 1];   //tmp的位置还在前面
 			a[j] = tmp;
 		}
 	}

@@ -8,6 +8,86 @@ import java.util.*;
  */
 public class Test {
 
+	@org.junit.Test
+	public void m12() {
+		String str = "abcdefghgfedwxyz";
+		int longest = getLongestPalindrome(str, str.length());
+		System.out.println(longest);
+	}
+
+
+	public static int getLongestPalindrome(String str, int n) {
+		// 第 i 个字符到第 j 个字符是否是回文串
+		boolean[][] dp = new boolean[n][n];
+		int max = 0;
+		// 字符串首尾字母长度差 (d = j-i)
+		for (int d = 0; d < n; d++) {
+			// 字符串起始位置 i
+			for (int i = 0; i < n - d; i++) {
+				// 字符串结束位置 j
+				int j = i + d;
+				// 如果字符串 i 到 j 的首尾相等，再根据字符串 i-1 到 j-1 来确定，即得到递推公式
+				if (str.charAt(i) == str.charAt(j)) {
+					if (d == 0 || d == 1) {
+						dp[i][j] = true;
+					} else {
+						dp[i][j] = dp[i + 1][j - 1];
+					}
+					if (dp[i][j]) {
+						// 更新最大长度
+						max = Math.max(max, d + 1);
+					}
+				}
+			}
+		}
+		return max;
+	}
+
+
+	/**
+	 * 测试最长公共子序列
+	 */
+	@org.junit.Test
+	public void m11() {
+		String str1 = "abcdefghjk";
+		String str2 = "wefghjkz";
+		int longest = getLongestCommonSubsequence(str1, str2);
+		System.out.println(longest);
+
+
+	}
+
+	public static int getLongestCommonSubsequence(String str1, String str2) {
+		int len1 = str1.length(), len2 = str2.length();
+		int[][] dp = new int[len1][len2];
+		for (int i = 0; i < len1; i++) {
+			for (int j = 0; j < len2; j++) {
+				if (str1.charAt(i) == str2.charAt(j)) {
+					if (i == 0 || j == 0)
+						dp[i][j] = 1;
+					else
+						dp[i][j] = dp[i - 1][j - 1] + 1;
+				} else {
+					if (i == 0 || j == 0)
+						dp[i][j] = 0;
+					else
+						dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
+				}
+			}
+		}
+		return dp[len1 - 1][len2 - 1];
+	}
+
+
+	static void funSwapTwo(int a, int b) {
+
+		a = a ^ b;
+		b = b ^ a;
+		a = a ^ b;
+		System.out.println(a + " " + b);
+	}
+
+
 	/**
 	 * PECS原则
 	 */
