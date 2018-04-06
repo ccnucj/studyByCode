@@ -12,3 +12,13 @@ bin
 *.iml
 *.class
 
+.DS_Store
+ArtConcurrentBook/src/test/
+algorithmByJava/src/test/
+designparttern/.DS_Store
+designparttern/src/.DS_Store
+designparttern/src/main/.DS_Store
+designparttern/src/main/java/.DS_Store
+designparttern/src/main/java/headfirst/.DS_Store
+designparttern/src/main/java/headfirst/designpatterns/.DS_Store
+designparttern/src/main/java/headfirst/designpatterns/adapter/.DS_Store
