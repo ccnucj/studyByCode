@@ -26,4 +26,14 @@ public class L055_Jump_Game {
 		return true;
 	}
 
+	public boolean canJump2(int[] nums) {
+		int currMaxStep = nums[0];  //当前能够跳跃的最大步数
+		for (int i = 1; i < nums.length; ++i) {
+			if (i > currMaxStep) return false;
+			currMaxStep = Math.max(i + nums[i], currMaxStep);
+		}
+		return currMaxStep >= nums.length - 1;
+
+	}
+
 }
